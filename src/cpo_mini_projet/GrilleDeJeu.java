@@ -173,6 +173,39 @@ private int compterBombesAdjacentes(int ligne, int colonne) {
     }
     return true; // Toutes les cellules sûres ont été révélées
 }
+@Override
+public String toString() {
+    StringBuilder grilleAffichage = new StringBuilder();
+
+    // Ajouter une ligne d'indices pour les colonnes
+    grilleAffichage.append("   ");
+    for (int col = 0; col < nbColonnes; col++) {
+        grilleAffichage.append(col).append(" ");
+    }
+    grilleAffichage.append("\n");
+
+    // Bordure supérieure
+    grilleAffichage.append("  ").append("-".repeat(nbColonnes * 2)).append("\n");
+
+    // Parcourir chaque ligne
+    for (int i = 0; i < nbLignes; i++) {
+        // Ajouter un indice pour la ligne
+        grilleAffichage.append(i).append(" |");
+
+        // Parcourir chaque colonne
+        for (int j = 0; j < nbColonnes; j++) {
+            grilleAffichage.append(matriceCellules[i][j].toString()).append(" ");
+        }
+
+        // Fin de ligne
+        grilleAffichage.append("\n");
+    }
+
+    // Bordure inférieure
+    grilleAffichage.append("  ").append("-".repeat(nbColonnes * 2)).append("\n");
+
+    return grilleAffichage.toString();
+}
 
     
 }
