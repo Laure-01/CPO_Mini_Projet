@@ -30,4 +30,20 @@ public void placerBombe() {
 public void revelerCellule(){
     devoilee = true;
 }
+ public void setNbBombesAdjacentes(int nbBombesAdjacentes) {
+        this.nbBombesAdjacentes = nbBombesAdjacentes;
+    }
+ // Méthode toString()
+    @Override
+    public String toString() {
+        if (!devoilee) {
+            return "?"; // Non dévoilée
+        } else if (presenceBombe) {
+            return "B"; // Bombe dévoilée
+        } else if (nbBombesAdjacentes > 0) {
+            return String.valueOf(nbBombesAdjacentes); // Nombre de bombes adjacentes
+        } else {
+            return " "; // Aucune bombe ni adjacente
+        }
+    }
 }
