@@ -20,17 +20,9 @@ public class Partie {
         this.grilleDeJeu = new GrilleDeJeu(nbLignes, nbColonnes, nbBombes);
         this.nbVies = nbVies;
         this.jeuEnCours = true;
-    }
-    // Méthode d'initialisation de la partie
-    public void initialiserPartie() {
-        // Recalcule les bombes adjacentes après avoir placé les bombes
         grilleDeJeu.calculerBombesAdjacentes();
-        // L'état du jeu est toujours en cours au début
-        jeuEnCours = true;
-        // Réinitialisation des vies (par exemple à 3 vies)
-        nbVies = 3; // Vous pouvez ajuster cette valeur selon vos besoins
-        System.out.println("La partie est maintenant commencée !");
     }
+    
     
     // Méthode pour vérifier si le joueur a gagné la partie
     public boolean verifierVictoire() {
@@ -52,47 +44,43 @@ public class Partie {
                 System.out.println("Vous avez perdu toutes vos vies. Fin de la partie !");
         } else {
             grilleDeJeu.revelerCellule(ligne, colonne);
-            System.out.println(grilleDeJeu.Devoile(ligne, colonne));
+            System.out.println("Vous avez révélé une cellule sûre.");
             }
-    
-        
-
-        // Vérifier si le joueur a gagné (toutes les cellules sûres révélées)
-        if (verifierVictoire()) {
-            jeuEnCours = false;
-            System.out.println("Félicitations! Vous avez gagné.");
+            // Vérification de la victoire
+        if (grilleDeJeu.toutesCellulesRevelees()) {
+            System.out.println("Félicitations ! Vous avez gagné la partie !");
         }
     }
-    // Méthode pour obtenir l'état de la grille sous forme textuelle
-    public void afficherGrille() {
-        System.out.println(grilleDeJeu.toString());
+    // Vérifier si le joueur a perdu
+    public boolean verifierDefaite() {
+        return nbVies <= 0;
     }
 
-    // Méthode pour obtenir le nombre de vies restantes
-    public int getNbVies() {
-        return nbVies;
-    }
-
-    // Méthode pour vérifier si le jeu est toujours en cours
-    public boolean isJeuEnCours() {
-        return jeuEnCours;
-    }
+    
     // Méthode principale qui démarre la partie
-    public void demarrerPartie() {
+   public void demarrerPartie() {
         Scanner scanner = new Scanner(System.in);
-         // Boucle du jeu tant que le jeu est en cours
-        while (jeuEnCours) {
-            afficherGrille();
-            System.out.println("Entrez la ligne et la colonne à révéler (ex: 2 3) : ");
-            
-            // Lire les coordonnées de la cellule à révéler
+        while (!grilleDeJeu.toutesCellulesRevelees() && !verifierDefaite()) {
+            System.out.println(grilleDeJeu);
+            System.out.print("Entrez la ligne : ");
             int ligne = scanner.nextInt();
+            System.out.print("Entrez la colonne : ");
             int colonne = scanner.nextInt();
-            
-            // Appeler la méthode tourDeJeu
+
+            // Jouer un tour
             tourDeJeu(ligne, colonne);
         }
 
+        // Afficher la grille finale
+        System.out.println("Grille finale :");
+        System.out.println(grilleDeJeu);
+
+        // Résultat final
+        if (grilleDeJeu.toutesCellulesRevelees()) {
+            System.out.println("Vous avez gagné !");
+        } else if (verifierDefaite()) {
+            System.out.println("Vous avez perdu !");
+        }
         // Fermer le scanner à la fin du jeu
         scanner.close();
     
