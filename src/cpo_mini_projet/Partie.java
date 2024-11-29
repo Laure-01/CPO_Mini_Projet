@@ -41,26 +41,21 @@ public class Partie {
     
     // Méthode pour gérer un tour de jeu
     public void tourDeJeu(int ligne, int colonne) {
-        // Vérifier si le jeu est encore en cours
-        if (!jeuEnCours) {
-            System.out.println("Le jeu est terminé. Aucune action n'est possible.");
-            return;
-        }
-
-        // Révéler la cellule demandée
-        grilleDeJeu.revelerCellule(ligne, colonne);
-
         // Vérifier si la cellule contient une bombe
         if (grilleDeJeu.getPresenceBombe(ligne, colonne)) {
             nbVies--; // On perd une vie
             System.out.println("Boom! Vous avez perdu une vie. Vies restantes : " + nbVies);
-
-            // Vérifier si le joueur n'a plus de vies
-            if (nbVies == 0) {
-                jeuEnCours = false;
-                System.out.println("Fin de la partie! Vous avez perdu.");
             }
-        }
+        // Perte d'une vie
+            System.out.println("Oh non ! Vous avez révélé une bombe. Il vous reste " + nbVies + " vies.");
+            if (nbVies <= 0) {
+                System.out.println("Vous avez perdu toutes vos vies. Fin de la partie !");
+        } else {
+            grilleDeJeu.revelerCellule(ligne, colonne);
+            System.out.println(grilleDeJeu.Devoile(ligne, colonne));
+            }
+    
+        
 
         // Vérifier si le joueur a gagné (toutes les cellules sûres révélées)
         if (verifierVictoire()) {

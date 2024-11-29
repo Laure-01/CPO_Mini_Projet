@@ -121,7 +121,7 @@ private int compterBombesAdjacentes(int ligne, int colonne) {
     public void revelerCellule(int ligne, int colonne) {
     // Vérification des indices valides
     if (ligne < 0 || ligne >= nbLignes || colonne < 0 || colonne >= nbColonnes) {
-        return; // Sortir si hors des limites de la grille
+        return ; // Sortir si hors des limites de la grille
     }
 
     // Récupérer la cellule
