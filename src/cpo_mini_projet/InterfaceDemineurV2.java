@@ -4,19 +4,29 @@
  */
 package cpo_mini_projet;
 
+import java.awt.GridLayout;
+import javax.swing.JButton;
+
 /**
  *
- * @author lenovo
+ * @author saint
  */
-public class InterfaceDemineur extends javax.swing.JFrame {
+public class InterfaceDemineurV2 extends javax.swing.JFrame {
 
     /**
-     * Creates new form InterfaceDemineur
+     * Creates new form InterfaceDemineurV2
      */
-    public InterfaceDemineur() {
+    public InterfaceDemineurV2() {
         initComponents();
-        
-        
+        int nbLignes = 10; 
+        int nbColonnes = 10; 
+PanneauGrille.setLayout(new GridLayout(nbLignes, nbColonnes));
+for (int i=0; i < nbLignes; i++) { 
+    for (int j=0; j < nbColonnes; j++ ) { 
+        JButton bouton_cellule = new JButton(); // création d'un bouton 
+        PanneauGrille.add(bouton_cellule); // ajout au Jpanel PanneauGrille 
+} 
+} 
     }
 
     /**
@@ -28,27 +38,27 @@ public class InterfaceDemineur extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        GrilleDeJeu = new javax.swing.JPanel();
+        PanneauGrille = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        GrilleDeJeu.setBackground(new java.awt.Color(51, 204, 255));
-        GrilleDeJeu.setMaximumSize(new java.awt.Dimension(400, 400));
-        GrilleDeJeu.setPreferredSize(new java.awt.Dimension(400, 400));
+        PanneauGrille.setBackground(new java.awt.Color(255, 204, 255));
+        PanneauGrille.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        PanneauGrille.setPreferredSize(new java.awt.Dimension(400, 400));
 
-        javax.swing.GroupLayout GrilleDeJeuLayout = new javax.swing.GroupLayout(GrilleDeJeu);
-        GrilleDeJeu.setLayout(GrilleDeJeuLayout);
-        GrilleDeJeuLayout.setHorizontalGroup(
-            GrilleDeJeuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout PanneauGrilleLayout = new javax.swing.GroupLayout(PanneauGrille);
+        PanneauGrille.setLayout(PanneauGrilleLayout);
+        PanneauGrilleLayout.setHorizontalGroup(
+            PanneauGrilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
         );
-        GrilleDeJeuLayout.setVerticalGroup(
-            GrilleDeJeuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        PanneauGrilleLayout.setVerticalGroup(
+            PanneauGrilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
         );
 
-        getContentPane().add(GrilleDeJeu, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, -1));
+        getContentPane().add(PanneauGrille, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -70,25 +80,25 @@ public class InterfaceDemineur extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InterfaceDemineur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfaceDemineurV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InterfaceDemineur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfaceDemineurV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InterfaceDemineur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfaceDemineurV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InterfaceDemineur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfaceDemineurV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InterfaceDemineur().setVisible(true);
+                new InterfaceDemineurV2().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel GrilleDeJeu;
+    private javax.swing.JPanel PanneauGrille;
     // End of variables declaration//GEN-END:variables
 }
