@@ -28,6 +28,14 @@ for (int i=0; i < nbLignes; i++) {
 } 
 } 
     }
+     public void ChoisirDifficulte(int Difficulte){
+         switch (Difficulte){
+             case 1: 
+         }
+    
+}
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
