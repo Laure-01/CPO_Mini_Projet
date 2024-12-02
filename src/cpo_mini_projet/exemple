@@ -1,0 +1,129 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class JeuDeminageSwing extends JFrame {
+    private GrilleDeJeu grille; // Modèle logique du jeu
+    private JButton[][] boutons; // Tableau de boutons pour l'interface graphique
+    private final int NB_LIGNES = 10; // Nombre de lignes de la grille
+    private final int NB_COLONNES = 10; // Nombre de colonnes de la grille
+    private final int NB_BOMBES = 10; // Nombre de bombes dans la grille
+
+    public JeuDeminageSwing() {
+        // Initialiser la grille de jeu
+        grille = new GrilleDeJeu(NB_LIGNES, NB_COLONNES, NB_BOMBES);
+        grille.calculerBombesAdjacentes(); // Calculer les bombes adjacentes après placement
+
+        // Initialiser les composants de l'interface graphique
+        setTitle("Jeu de Démineur");
+        setSize(600, 600);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // Panneau pour afficher la grille
+        JPanel panneauGrille = new JPanel();
+        panneauGrille.setLayout(new GridLayout(NB_LIGNES, NB_COLONNES));
+
+        // Initialiser le tableau de boutons
+        boutons = new JButton[NB_LIGNES][NB_COLONNES];
+        for (int i = 0; i < NB_LIGNES; i++) {
+            for (int j = 0; j < NB_COLONNES; j++) {
+                JButton bouton = new JButton();
+                bouton.setPreferredSize(new Dimension(50, 50));
+                boutons[i][j] = bouton;
+
+                // Ajouter un écouteur d'événements pour chaque bouton
+                final int ligne = i;
+                final int colonne = j;
+                bouton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        revelerCellule(ligne, colonne);
+                    }
+                });
+
+                // Ajouter le bouton au panneau
+                panneauGrille.add(bouton);
+            }
+        }
+
+        // Ajouter le panneau de la grille à la fenêtre
+        add(panneauGrille, BorderLayout.CENTER);
+
+        // Panneau inférieur pour afficher des messages ou ajouter des options
+        JPanel panneauInferieur = new JPanel();
+        JLabel message = new JLabel("Trouvez toutes les bombes sans exploser !");
+        panneauInferieur.add(message);
+        add(panneauInferieur, BorderLayout.SOUTH);
+
+        // Rendre la fenêtre visible
+        setVisible(true);
+    }
+
+    // Méthode pour révéler une cellule
+    private void revelerCellule(int ligne, int colonne) {
+        if (grille.getPresenceBombe(ligne, colonne)) {
+            // Si la cellule contient une bombe, fin de la partie
+            boutons[ligne][colonne].setText("B");
+            boutons[ligne][colonne].setBackground(Color.RED);
+            JOptionPane.showMessageDialog(this, "Boom! Vous avez perdu !");
+            resetJeu();
+        } else {
+            // Sinon, révéler la cellule et propager si nécessaire
+            revelerCelluleRecursivement(ligne, colonne);
+
+            // Vérifier si toutes les cellules sûres ont été révélées
+            if (grille.toutesCellulesRevelees()) {
+                JOptionPane.showMessageDialog(this, "Félicitations ! Vous avez gagné !");
+                resetJeu();
+            }
+        }
+    }
+
+    // Méthode récursive pour révéler les cellules adjacentes
+    private void revelerCelluleRecursivement(int ligne, int colonne) {
+        if (ligne < 0 || ligne >= NB_LIGNES || colonne < 0 || colonne >= NB_COLONNES) {
+            return; // Hors des limites de la grille
+        }
+
+        Cellule cellule = grille.getCellule(ligne, colonne);
+        if (cellule.getDevoilee()) {
+            return; // Si déjà dévoilée, ne rien faire
+        }
+
+        // Révéler la cellule
+        cellule.revelerCellule();
+        boutons[ligne][colonne].setText(cellule.getNbBombesAdjacentes() > 0
+                ? String.valueOf(cellule.getNbBombesAdjacentes())
+                : "");
+        boutons[ligne][colonne].setBackground(Color.LIGHT_GRAY);
+
+        // Si aucune bombe adjacente, propager
+        if (cellule.getNbBombesAdjacentes() == 0) {
+            for (int i = -1; i <= 1; i++) {
+                for (int j = -1; j <= 1; j++) {
+                    if (i != 0 || j != 0) {
+                        revelerCelluleRecursivement(ligne + i, colonne + j);
+                    }
+                }
+            }
+        }
+    }
+
+    // Méthode pour réinitialiser le jeu
+    private void resetJeu() {
+        grille = new GrilleDeJeu(NB_LIGNES, NB_COLONNES, NB_BOMBES);
+        grille.calculerBombesAdjacentes();
+        for (int i = 0; i < NB_LIGNES; i++) {
+            for (int j = 0; j < NB_COLONNES; j++) {
+                boutons[i][j].setText("");
+                boutons[i][j].setBackground(null);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        new JeuDeminageSwing();
+    }
+}
