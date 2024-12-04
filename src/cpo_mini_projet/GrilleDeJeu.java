@@ -28,6 +28,7 @@ public class GrilleDeJeu {
                 matriceCellules[i][j] = new Cellule(false, false, 0);
             }
         }
+        
 
         // Placer les bombes aléatoirement dans la grille
         placerBombesAleatoirement();

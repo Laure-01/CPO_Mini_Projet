@@ -20,10 +20,12 @@ public class InterfaceDemineurV2 extends javax.swing.JFrame {
         initComponents();
         int nbLignes = 10; 
         int nbColonnes = 10; 
+        int nbBombes = 0;
+        GrilleDeJeu matp = new GrilleDeJeu(nbLignes, nbColonnes, nbBombes);
 PanneauGrille.setLayout(new GridLayout(nbLignes, nbColonnes));
 for (int i=0; i < nbLignes; i++) { 
     for (int j=0; j < nbColonnes; j++ ) { 
-        JButton bouton_cellule = new JButton(); // création d'un bouton 
+        CelluleGraphique bouton_cellule = new CelluleGraphique(i,j); // création d'un bouton 
         PanneauGrille.add(bouton_cellule); // ajout au Jpanel PanneauGrille 
 } 
 } 
@@ -66,7 +68,7 @@ for (int i=0; i < nbLignes; i++) {
             .addGap(0, 400, Short.MAX_VALUE)
         );
 
-        getContentPane().add(PanneauGrille, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(PanneauGrille, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

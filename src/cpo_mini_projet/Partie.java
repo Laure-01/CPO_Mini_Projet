@@ -17,7 +17,7 @@ public class Partie {
 
     // Constructeur : Initialise une partie avec une grille de jeu, un nombre de vies, et l'état du jeu
     public Partie(int nbLignes, int nbColonnes, int nbBombes, int nbVies) {
-        this.grilleDeJeu = new GrilleDeJeu(nbLignes, nbColonnes, nbBombes);
+        GrilleDeJeu matp = new GrilleDeJeu(nbLignes, nbColonnes, nbBombes);
         this.nbVies = nbVies;
         this.jeuEnCours = true;
         grilleDeJeu.calculerBombesAdjacentes();
