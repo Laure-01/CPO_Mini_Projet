@@ -12,7 +12,7 @@ import javax.swing.JButton;
  * @author saint
  */
 public class InterfaceDemineurV2 extends javax.swing.JFrame {
-
+private GrilleDeJeu grilleDeJeu;
     /**
      * Creates new form InterfaceDemineurV2
      */
@@ -20,8 +20,9 @@ public class InterfaceDemineurV2 extends javax.swing.JFrame {
         initComponents();
         int nbLignes = 10; 
         int nbColonnes = 10; 
-        int nbBombes = 0;
-        GrilleDeJeu matp = new GrilleDeJeu(nbLignes, nbColonnes, nbBombes);
+        int nbBombes = 10;
+        grilleDeJeu = new GrilleDeJeu(nbLignes, nbColonnes, nbBombes);
+        grilleDeJeu.calculerBombesAdjacentes();
 PanneauGrille.setLayout(new GridLayout(nbLignes, nbColonnes));
 for (int i=0; i < nbLignes; i++) { 
     for (int j=0; j < nbColonnes; j++ ) { 
