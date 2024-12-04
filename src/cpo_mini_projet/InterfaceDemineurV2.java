@@ -30,12 +30,49 @@ for (int i=0; i < nbLignes; i++) {
 } 
 } 
     }
-     public void ChoisirDifficulte(int Difficulte){
-         switch (Difficulte){
-             case 1: 
-         }
-    
+     public void ChoisirDifficulte(int Difficulte) {
+    int nbLignes = 10; // Valeurs par défaut
+    int nbColonnes = 10;
+    int nbBombes = 10;
+
+    switch (Difficulte) {
+
+        case 1 -> {
+            // Facile
+            nbLignes = 8;
+            nbColonnes = 8;
+            nbBombes = 10;
+            }
+        case 2 -> {
+            // Moyen
+            nbLignes = 12;
+            nbColonnes = 12;
+            nbBombes = 20;
+            }
+        case 3 -> {
+            // Difficile
+            nbLignes = 16;
+            nbColonnes = 16;
+            nbBombes = 40;
+            }
+        default -> System.out.println("Difficulté non reconnue. Paramètres par défaut appliqués.");
+    }
+
+    // Reconfigurer la grille en fonction des nouveaux paramètres
+    GrilleDeJeu matp = new GrilleDeJeu(nbLignes, nbColonnes, nbBombes);
+    PanneauGrille.removeAll(); // Réinitialiser le panneau de la grille
+    PanneauGrille.setLayout(new GridLayout(nbLignes, nbColonnes));
+
+    for (int i = 0; i < nbLignes; i++) {
+        for (int j = 0; j < nbColonnes; j++) {
+            CelluleGraphique bouton_cellule = new CelluleGraphique(i, j); // Création d'un bouton
+            PanneauGrille.add(bouton_cellule); // Ajout du bouton au panneau
+        }
+    }
+    PanneauGrille.revalidate(); // Mettre à jour l'interface
+    PanneauGrille.repaint();
 }
+
 
     
 
@@ -101,10 +138,8 @@ for (int i=0; i < nbLignes; i++) {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InterfaceDemineurV2().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new InterfaceDemineurV2().setVisible(true);
         });
     }
 
