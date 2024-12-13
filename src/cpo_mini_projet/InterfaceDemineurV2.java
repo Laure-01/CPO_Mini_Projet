@@ -5,6 +5,8 @@
 package cpo_mini_projet;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 /**
@@ -13,66 +15,107 @@ import javax.swing.JButton;
  */
 public class InterfaceDemineurV2 extends javax.swing.JFrame {
 private GrilleDeJeu grilleDeJeu;
+    private final int nbLignes = 10;
+    private final int nbColonnes = 10;
+    private final int nbBombes = 10;
     /**
      * Creates new form InterfaceDemineurV2
      */
-    public InterfaceDemineurV2() {
+   public InterfaceDemineurV2() {
         initComponents();
-        int nbLignes = 10; 
-        int nbColonnes = 10; 
-        int nbBombes = 10;
-        grilleDeJeu = new GrilleDeJeu(nbLignes, nbColonnes, nbBombes);
-        grilleDeJeu.calculerBombesAdjacentes();
-PanneauGrille.setLayout(new GridLayout(nbLignes, nbColonnes));
-for (int i=0; i < nbLignes; i++) { 
-    for (int j=0; j < nbColonnes; j++ ) { 
-        CelluleGraphique bouton_cellule = new CelluleGraphique(i,j); // création d'un bouton 
-        PanneauGrille.add(bouton_cellule); // ajout au Jpanel PanneauGrille 
-} 
-} 
-    }
-     public void ChoisirDifficulte(int Difficulte) {
-    int nbLignes = 10; // Valeurs par défaut
-    int nbColonnes = 10;
-    int nbBombes = 10;
-
-    switch (Difficulte) {
-
-        case 1 -> {
-            // Facile
-            nbLignes = 8;
-            nbColonnes = 8;
-            nbBombes = 10;
-            }
-        case 2 -> {
-            // Moyen
-            nbLignes = 12;
-            nbColonnes = 12;
-            nbBombes = 20;
-            }
-        case 3 -> {
-            // Difficile
-            nbLignes = 16;
-            nbColonnes = 16;
-            nbBombes = 40;
-            }
-        default -> System.out.println("Difficulté non reconnue. Paramètres par défaut appliqués.");
+        
     }
 
-    // Reconfigurer la grille en fonction des nouveaux paramètres
-    GrilleDeJeu matp = new GrilleDeJeu(nbLignes, nbColonnes, nbBombes);
-    PanneauGrille.removeAll(); // Réinitialiser le panneau de la grille
+    // Méthode pour initialiser le jeu
+    private void initialiserJeu() {
+    grilleDeJeu = new GrilleDeJeu(nbLignes, nbColonnes, nbBombes);
+    grilleDeJeu.calculerBombesAdjacentes();
+
     PanneauGrille.setLayout(new GridLayout(nbLignes, nbColonnes));
 
-    for (int i = 0; i < nbLignes; i++) {
+    for (int i = 0; i < nbLignes; i++) { 
         for (int j = 0; j < nbColonnes; j++) {
-            CelluleGraphique bouton_cellule = new CelluleGraphique(i, j); // Création d'un bouton
-            PanneauGrille.add(bouton_cellule); // Ajout du bouton au panneau
+            final int i2 =i;
+            final int j2 =j;
+            // Récupérer la cellule correspondante dans la grille
+            Cellule cellule = grilleDeJeu.getMatriceCellules()[i][j];
+
+            // Créer un bouton CelluleGraphique en passant la cellule correspondante
+            CelluleGraphique boutonCellule = new CelluleGraphique(i, j, cellule);
+
+            // Ajouter un ActionListener pour gérer les clics
+            boutonCellule.addActionListener(e -> {
+                if (!cellule.getDevoilee()) {
+                    // Révéler la cellule dans la grille
+                    grilleDeJeu.revelerCellule(i2, j2);
+
+                    // Mettre à jour l'affichage
+                    mettreAJourAffichage();
+                }
+            });
+
+            // Ajouter le bouton au panneau
+            PanneauGrille.add(boutonCellule);
         }
     }
-    PanneauGrille.revalidate(); // Mettre à jour l'interface
+
+    PanneauGrille.revalidate(); // Re-valider et redessiner le panneau
     PanneauGrille.repaint();
 }
+
+
+    // Méthode pour mettre à jour l'affichage après un clic
+    private void mettreAJourAffichage() {
+        Cellule[][] cellules = grilleDeJeu.getMatriceCellules();
+        
+        // Parcourir chaque cellule de la grille et mettre à jour son affichage
+        for (int i = 0; i < cellules.length; i++) {
+            for (int j = 0; j < cellules[i].length; j++) {
+                Cellule cellule = cellules[i][j];
+                // Récupérer le bouton correspondant
+                CelluleGraphique bouton = (CelluleGraphique) PanneauGrille.getComponent(i * nbColonnes + j);
+
+                if (cellule.getDevoilee()) {
+                    if (cellule.getPresenceBombe()) {
+                        bouton.setText("B"); // Affiche une bombe
+                    } else {
+                        int nbBombesAdjacentes = cellule.getNbBombesAdjacentes();
+                        bouton.setText(nbBombesAdjacentes > 0 ? String.valueOf(nbBombesAdjacentes) : "");
+                    }
+                    bouton.setEnabled(false);
+                }
+            }
+        }
+    }
+// Méthode qui définit les paramètres de la grille en fonction de la difficulté
+    public void ChoisirDifficulte(int difficulte) {
+        switch (difficulte) {
+            case 1: // Facile
+                nbLignes = 8;
+                nbColonnes = 8;
+                nbBombes = 10;
+                break;
+            case 2: // Moyen
+                nbLignes = 12;
+                nbColonnes = 12;
+                nbBombes = 20;
+                break;
+            case 3: // Difficile
+                nbLignes = 16;
+                nbColonnes = 16;
+                nbBombes = 40;
+                break;
+            default:
+                System.out.println("Difficulté non reconnue. Paramètres par défaut appliqués.");
+                nbLignes = 10;
+                nbColonnes = 10;
+                nbBombes = 10;
+                break;
+        }
+    }
+    
+
+            
 
 
     

@@ -45,6 +45,10 @@ public class GrilleDeJeu {
     public int getNbBombes() {
         return nbBombes;
     }
+    
+    public Cellule[][] getMatriceCellules() {
+    return matriceCellules;
+}
 
     // Méthode pour placer les bombes aléatoirement
     private void placerBombesAleatoirement() {
