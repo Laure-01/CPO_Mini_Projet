@@ -5,6 +5,7 @@
 package cpo_mini_projet;
 
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 /**
@@ -27,7 +28,7 @@ public class CelluleGraphique extends JButton {
     public void mettreAJourAffichage() {
         if (cellule.getDevoilee()) {
             if (cellule.getPresenceBombe()) {
-                this.setText("B"); // Bombe
+                this.setIcon(new ImageIcon(getClass().getResource("/images/bombe.png")));
             } else if (cellule.getNbBombesAdjacentes() > 0) {
                 this.setText(String.valueOf(cellule.getNbBombesAdjacentes())); // Nombre de bombes adjacentes
             } else {
@@ -36,6 +37,7 @@ public class CelluleGraphique extends JButton {
             this.setEnabled(false); // Désactiver le bouton une fois révélé
         } else {
             this.setText("?"); // Non révélé
+            this.setIcon(null); // Pas d'image si non révélé
         }
     }
 

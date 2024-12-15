@@ -110,7 +110,7 @@ public class GrilleDeJeu {
         for (int i = 0; i < nbLignes; i++) {
             for (int j = 0; j < nbColonnes; j++) {
                 if (matriceCellules[i][j].getPresenceBombe()) {
-                    System.out.print("B ");
+                    System.out.print("\"/images/bombe.png\" ");
                 } else {
                     System.out.print(matriceCellules[i][j].getNbBombesAdjacentes() + " ");
                 }

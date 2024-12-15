@@ -17,32 +17,16 @@ public class InterfaceChoixDifficulte extends javax.swing.JFrame {
   public InterfaceChoixDifficulte() {
         initComponents();
 
-        // Associer les actions aux boutons
-        JB1.addActionListener(e -> {
-            System.out.println("Difficulté : Facile");
-            ChoisirDifficulte(1); // Facile
-        });
-
-        JB2.addActionListener(e -> {
-            System.out.println("Difficulté : Moyen");
-            ChoisirDifficulte(2); // Moyen
-        });
-
-        JB3.addActionListener(e -> {
-            System.out.println("Difficulté : Difficile");
-            ChoisirDifficulte(3); // Difficile
-        });
+        JB1.addActionListener(e -> lancerJeuAvecDifficulte(1)); // Facile
+        JB2.addActionListener(e -> lancerJeuAvecDifficulte(2)); // Moyen
+        JB3.addActionListener(e -> lancerJeuAvecDifficulte(3)); // Difficile
     }
-    private void ChoisirDifficulte(int niveau) {
-        switch (niveau) {
-            case 1 -> System.out.println("Configuration pour la difficulté FACILE.");
-            // Code de configuration pour Facile
-            case 2 -> System.out.println("Configuration pour la difficulté MOYEN.");
-            // Code de configuration pour Moyen
-            case 3 -> System.out.println("Configuration pour la difficulté DIFFICILE.");
-            // Code de configuration pour Difficile
-            default -> System.out.println("Difficulté non reconnue !");
-        }
+
+    private void lancerJeuAvecDifficulte(int niveau) {
+        InterfaceDemineurV2 demineur = new InterfaceDemineurV2();
+        demineur.ChoisirDifficulte(niveau); // Configure la difficulté
+        demineur.setVisible(true); // Affiche la fenêtre principale
+        this.dispose(); // Ferme la fenêtre actuelle
     }
 
     /**

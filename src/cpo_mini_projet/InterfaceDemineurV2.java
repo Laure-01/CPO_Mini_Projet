@@ -15,16 +15,18 @@ import javax.swing.JButton;
  */
 public class InterfaceDemineurV2 extends javax.swing.JFrame {
 private GrilleDeJeu grilleDeJeu;
-    private final int nbLignes = 10;
-    private final int nbColonnes = 10;
-    private final int nbBombes = 10;
+    private  int nbLignes = 10;
+    private  int nbColonnes = 10;
+    private  int nbBombes = 10;
     /**
      * Creates new form InterfaceDemineurV2
      */
    public InterfaceDemineurV2() {
         initComponents();
-        
+        initialiserJeu(); // Initialise le jeu par défaut
     }
+   
+   
 
     // Méthode pour initialiser le jeu
     private void initialiserJeu() {
