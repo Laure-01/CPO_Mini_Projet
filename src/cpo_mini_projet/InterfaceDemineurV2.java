@@ -15,6 +15,7 @@ import javax.swing.JButton;
  */
 public class InterfaceDemineurV2 extends javax.swing.JFrame {
 private  GrilleDeJeu grilleDeJeu;
+private int nbVies;
     private  int nbLignes =10;
     private  int nbColonnes =10;
     private  int nbBombes =10;
@@ -113,16 +114,19 @@ private  GrilleDeJeu grilleDeJeu;
                 nbLignes = 8;
                 nbColonnes = 8;
                 nbBombes = 10;
+                nbVies = 2;
                 break;
             case 2: // Moyen
                 nbLignes = 12;
                 nbColonnes = 12;
                 nbBombes = 20;
+                nbVies = 1;
                 break;
             case 3: // Difficile
                 nbLignes = 16;
                 nbColonnes = 16;
                 nbBombes = 40;
+                nbVies=1;
                 break;
             
         }
@@ -178,6 +182,8 @@ private  GrilleDeJeu grilleDeJeu;
     /**
      * @param args the command line arguments
      */
+
+               
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

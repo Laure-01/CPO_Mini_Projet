@@ -4,6 +4,8 @@
  */
 package cpo_mini_projet;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author saint
@@ -14,7 +16,7 @@ public class GrilleDeJeu {
     private int nbLignes;
     private int nbColonnes;
     private int nbBombes;
-
+    private int nbVies;
     // Constructeur : initialise une grille vide avec le nombre de lignes, de colonnes, et de bombes
     public GrilleDeJeu(int nbLignes, int nbColonnes, int nbBombes) {
         this.nbLignes = nbLignes;
@@ -25,7 +27,7 @@ public class GrilleDeJeu {
         // Initialiser chaque cellule
         for (int i = 0; i < nbLignes; i++) {
             for (int j = 0; j < nbColonnes; j++) {
-                matriceCellules[i][j] = new Cellule(false, false, 0);
+                matriceCellules[i][j] = new Cellule();
             }
         }
 
@@ -70,17 +72,40 @@ public class GrilleDeJeu {
 
     // Méthode pour calculer le nombre de bombes adjacentes pour chaque cellule
     public void calculerBombesAdjacentes() {
-        for (int i = 0; i < nbLignes; i++) {
-            for (int j = 0; j < nbColonnes; j++) {
-                // Si la cellule n'est pas une bombe
-                if (!matriceCellules[i][j].getPresenceBombe()) {
-                    int bombesAdjacentes = compterBombesAdjacentes(i, j);
-                    // Mise à jour du nombre de bombes adjacentes pour cette cellule
-                    matriceCellules[i][j].setNbBombesAdjacentes(bombesAdjacentes);
+    for (int ligne = 0; ligne < nbLignes; ligne++) {
+        for (int colonne = 0; colonne < nbColonnes; colonne++) {
+            Cellule cellule = matriceCellules[ligne][colonne];
+            if (!cellule.getPresenceBombe()) {
+                int nbBombesAdj = 0;
+                for (int i = -1; i <= 1; i++) {
+                    for (int j = -1; j <= 1; j++) {
+                        if (i == 0 && j == 0) continue; // Ne pas compter la cellule elle-même
+                        int nouvelleLigne = ligne + i;
+                        int nouvelleColonne = colonne + j;
+                        if (nouvelleLigne >= 0 && nouvelleLigne < nbLignes && nouvelleColonne >= 0 && nouvelleColonne < nbColonnes) {
+                            if (matriceCellules[nouvelleLigne][nouvelleColonne].getPresenceBombe()) {
+                                nbBombesAdj++;
+                            }
+                        }
+                    }
                 }
+                cellule.setNbBombesAdjacentes(nbBombesAdj); // Mettre à jour le nombre de bombes adjacentes
             }
         }
     }
+}
+
+    private void initialiserGrille() {
+    matriceCellules = new Cellule[nbLignes][nbColonnes];
+    
+    for (int i = 0; i < nbLignes; i++) {
+        for (int j = 0; j < nbColonnes; j++) {
+            // Créer chaque cellule en utilisant le constructeur sans paramètres
+            matriceCellules[i][j] = new Cellule();
+        }
+    }
+}
+
 
     // Méthode privée pour compter les bombes adjacentes à une cellule
     private int compterBombesAdjacentes(int ligne, int colonne) {
@@ -123,43 +148,60 @@ public class GrilleDeJeu {
     }
 
     // Méthode pour révéler une cellule à une position donnée
-    public void revelerCellule(int ligne, int colonne) {
-        // Vérification des indices valides
-        if (ligne < 0 || ligne >= nbLignes || colonne < 0 || colonne >= nbColonnes) {
-            return; // Sortir si hors des limites de la grille
-        }
+// Méthode pour révéler une cellule à une position donnée
+public void revelerCellule(int ligne, int colonne) {
+    // Vérifier si les indices sont valides
+    if (ligne < 0 || ligne >= nbLignes || colonne < 0 || colonne >= nbColonnes) {
+        return; // Sortir si hors des limites
+    }
 
-        // Récupérer la cellule
-        Cellule cellule = matriceCellules[ligne][colonne];
+    // Récupérer la cellule actuelle
+    Cellule cellule = matriceCellules[ligne][colonne];
 
-        // Vérifier si la cellule est déjà dévoilée
-        if (cellule.getDevoilee()) {
-            return; // Ne rien faire si la cellule est déjà révélée
-        }
+    // Si la cellule est déjà révélée ou marquée d'un drapeau, ne rien faire
+    if (cellule.getDevoilee() || cellule.isDrapeauPose()) {
+        return;
+    }
 
-        // Révéler la cellule
-        cellule.revelerCellule();
+    // Révéler la cellule
+    cellule.revelerCellule();
 
-        // Vérifier si la cellule contient une bombe
-        if (cellule.getPresenceBombe()) {
-            System.out.println("Boom! Vous avez révélé une bombe. Fin de la partie !");
-            return; // La partie se termine
-        }
+    // Si la cellule contient une bombe
+    if (cellule.getPresenceBombe()) {
+        System.out.println("Boom! Vous avez révélé une bombe. Fin de la partie !");
+        afficherInterfaceDefaite();
+        return;
+    }
 
-        // Si la cellule ne contient pas de bombe et a 0 bombes adjacentes, propagation
-        if (cellule.getNbBombesAdjacentes() == 0) {
-            // Appeler récursivement revelerCellule pour les cellules adjacentes
-            for (int i = -1; i <= 1; i++) {
-                for (int j = -1; j <= 1; j++) {
-                    if (i != 0 || j != 0) { // Exclure la cellule actuelle
-                        revelerCellule(ligne + i, colonne + j);
-                    }
+    // Si la cellule n'a **aucune bombe adjacente**, propager la révélation
+    if (cellule.getNbBombesAdjacentes() == 0) {
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (i == 0 && j == 0) {
+                    continue; // Ne pas traiter la cellule elle-même
                 }
+                int nouvelleLigne = ligne + i;
+                int nouvelleColonne = colonne + j;
+
+                // Récurser pour les cellules adjacentes
+                revelerCellule(nouvelleLigne, nouvelleColonne);
             }
         }
     }
+}
 
-    // Méthode pour vérifier si une cellule contient une bombe
+
+
+// Méthode pour afficher l'interface de défaite
+private void afficherInterfaceDefaite() {
+    // Créer et afficher la fenêtre de défaite
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            new InterfaceDefaite().setVisible(true);
+        }
+    });
+}
+
     public boolean getPresenceBombe(int i, int j) {
         // Vérifier si les indices sont valides
         if (i < 0 || i >= nbLignes || j < 0 || j >= nbColonnes) {
@@ -215,4 +257,4 @@ public class GrilleDeJeu {
 
         return grilleAffichage.toString();
     }
-}
+} 
