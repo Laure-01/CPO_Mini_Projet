@@ -4,30 +4,25 @@
  */
 package cpo_mini_projet;
 
+import java.awt.event.ActionEvent;
+
 /**
  *
  * @author saint
  */
-public class InterfaceChoixDifficulte extends javax.swing.JFrame {
 
+public class InterfaceChoixDifficulte extends javax.swing.JFrame {
+private Demineur demineur;
     /**
      * Creates new form InterfaceChoixDifficulte
      */
-    
-  public InterfaceChoixDifficulte() {
+    public InterfaceChoixDifficulte() {
         initComponents();
-
-        JB1.addActionListener(e -> lancerJeuAvecDifficulte(1)); // Facile
-        JB2.addActionListener(e -> lancerJeuAvecDifficulte(2)); // Moyen
-        JB3.addActionListener(e -> lancerJeuAvecDifficulte(3)); // Difficile
+       
+      
     }
+    
 
-    private void lancerJeuAvecDifficulte(int niveau) {
-        InterfaceDemineurV2 demineur = new InterfaceDemineurV2();
-        demineur.ChoisirDifficulte(niveau); // Configure la difficulté
-        demineur.setVisible(true); // Affiche la fenêtre principale
-        this.dispose(); // Ferme la fenêtre actuelle
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,97 +34,117 @@ public class InterfaceChoixDifficulte extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         JB1 = new javax.swing.JButton();
         JB2 = new javax.swing.JButton();
         JB3 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(400, 400));
+        jPanel1.setBackground(new java.awt.Color(255, 153, 255));
 
-        JB1.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
-        JB1.setText("Facile (:");
-        jPanel1.add(JB1);
+        jLabel1.setText("Choisir la difficulté");
 
-        JB2.setFont(new java.awt.Font("Sitka Text", 0, 12)); // NOI18N
-        JB2.setText("Moyen /:");
-        jPanel1.add(JB2);
+        JB1.setText("Facile");
+        JB1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB1ActionPerformed(evt);
+            }
+        });
 
-        JB3.setFont(new java.awt.Font("Segoe UI Variable", 0, 12)); // NOI18N
-        JB3.setText("Difficile (:<");
-        jPanel1.add(JB3);
+        JB2.setText("Modédéré");
+        JB2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB2ActionPerformed(evt);
+            }
+        });
 
-        jPanel2.setBackground(new java.awt.Color(255, 204, 255));
+        JB3.setText("Difficile");
+        JB3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB3ActionPerformed(evt);
+            }
+        });
 
-        jLabel2.setFont(new java.awt.Font("Tempus Sans ITC", 1, 24)); // NOI18N
-        jLabel2.setText("Choisir le niveau de difficulté");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(106, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(93, 93, 93))
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(149, 149, 149)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(71, 71, 71)
+                        .addComponent(JB1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(JB2)))
+                .addGap(30, 30, 30)
+                .addComponent(JB3)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(jLabel2)
-                .addContainerGap(127, Short.MAX_VALUE))
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addComponent(jLabel1)
+                .addGap(99, 99, 99)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JB1)
+                    .addComponent(JB2)
+                    .addComponent(JB3))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void JB2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB2ActionPerformed
+        // TODO add your handling code here:
+        // Si le bouton JB2 (Modéré) est pressé, lancer le démineur en difficulté 2 (modéré)
+    InterfaceDemineurV2 demm = new InterfaceDemineurV2(2);  // Créer une nouvelle instance de jeu
+    demm.ChoisirDifficulte(2);  // Passer la difficulté = 2 (modéré)
+    demm.setVisible(true);  // Afficher la fenêtre de jeu
+    this.setVisible(false);  // Masquer la fenêtre de sélection de difficulté
+
+    }//GEN-LAST:event_JB2ActionPerformed
+
+    private void JB1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB1ActionPerformed
+        // TODO add your handling code here:
+        // Si le bouton JB1 (Facile) est pressé, lancer le démineur en difficulté 1 (facile)
+    InterfaceDemineurV2 demm = new InterfaceDemineurV2(1);  // Créer une nouvelle instance de jeu
+    demm.ChoisirDifficulte(1);
+    demm.setVisible(true);  // Afficher la fenêtre de jeu
+    this.setVisible(false);
+    }//GEN-LAST:event_JB1ActionPerformed
+
+    private void JB3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB3ActionPerformed
+         // TODO add your handling code here:
+        // Si le bouton JB1 (Facile) est pressé, lancer le démineur en difficulté 1 (facile)
+    InterfaceDemineurV2 demmi = new InterfaceDemineurV2(3);  // Créer une nouvelle instance de jeu
+    demmi.ChoisirDifficulte(1);
+    demmi.setVisible(true);  // Afficher la fenêtre de jeu
+    this.setVisible(false);
+    }//GEN-LAST:event_JB3ActionPerformed
+
+                               
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-    for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-        if ("Nimbus".equals(info.getName())) {
-            javax.swing.UIManager.setLookAndFeel(info.getClassName());
-            break;
-        }
-    }
-} catch (Exception e) {
-    e.printStackTrace(); // Affiche l'erreur complète dans la console
-}
-
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InterfaceChoixDifficulte().setVisible(true);
-            }
-        });
+       
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -154,8 +169,10 @@ public class InterfaceChoixDifficulte extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new InterfaceChoixDifficulte().setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new InterfaceChoixDifficulte().setVisible(true);
+            }
         });
     }
 
@@ -163,8 +180,7 @@ public class InterfaceChoixDifficulte extends javax.swing.JFrame {
     private javax.swing.JButton JB1;
     private javax.swing.JButton JB2;
     private javax.swing.JButton JB3;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }
