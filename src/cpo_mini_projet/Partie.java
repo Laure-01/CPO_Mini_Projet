@@ -1,16 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package cpo_mini_projet;
 
 import java.util.Scanner;
-
-/**
- *
- * @author lenovo
- */
-import java.util.Scanner;
+import javax.swing.SwingUtilities;
 
 public class Partie {
     private GrilleDeJeu grilleDeJeu;
@@ -20,7 +11,6 @@ public class Partie {
 
     // Constructeur : Initialise une partie avec une grille de jeu, un nombre de vies, et l'état du jeu
     public Partie(int nbLignes, int nbColonnes, int nbBombes, int nbViesInitiales) {
-        // Créer la grille de jeu avec les dimensions et les bombes
         this.grilleDeJeu = new GrilleDeJeu(nbLignes, nbColonnes, nbBombes);
         this.nbViesInitiales = nbViesInitiales; // Sauvegarder le nombre initial de vies
         this.nbVies = nbViesInitiales; // Initialiser le nombre de vies avec la valeur définie
@@ -46,6 +36,7 @@ public class Partie {
             if (nbVies <= 0) {
                 System.out.println("Vous avez perdu toutes vos vies. Fin de la partie !");
                 jeuEnCours = false; // Fin de la partie
+                afficherDefaite(); // Afficher l'écran de défaite
                 return; // Sortir de la méthode, fin du tour
             }
         } else {
@@ -64,6 +55,18 @@ public class Partie {
     // Vérifier si le joueur a perdu
     public boolean verifierDefaite() {
         return nbVies <= 0;
+    }
+
+    // Méthode pour afficher l'interface de défaite
+    private void afficherDefaite() {
+        // Utiliser SwingUtilities.invokeLater pour lancer l'interface de défaite sur le thread graphique
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                InterfaceDefaite defaiteScreen = new InterfaceDefaite();
+                defaiteScreen.setVisible(true);
+            }
+        });
     }
 
     // Méthode principale qui démarre la partie

@@ -16,14 +16,7 @@ public class InterfaceBienvenue extends javax.swing.JFrame {
     public InterfaceBienvenue() {
         initComponents();
 
-        // Ajouter un ActionListener au bouton
-        JButton_d_entree.addActionListener(e -> {
-            // Fermer la fenêtre actuelle
-            this.dispose();
-
-            // Ouvrir la fenêtre InterfaceChoixDifficulte
-            new InterfaceChoixDifficulte().setVisible(true);
-        });
+       
     }
 
     /**
@@ -83,14 +76,21 @@ public class InterfaceBienvenue extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        // Ouvrir l'interface de choix de difficulté
+        InterfaceChoixDifficulte choixDifficulte = new InterfaceChoixDifficulte();
+        choixDifficulte.setVisible(true);
+        this.dispose(); // Fermer la fenêtre actuelle
+    }
+    
     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(() -> {
-            new InterfaceBienvenue().setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new InterfaceBienvenue().setVisible(true);
+            }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JButton_d_entree;

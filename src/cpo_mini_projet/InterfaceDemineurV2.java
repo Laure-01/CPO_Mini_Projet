@@ -14,60 +14,70 @@ import javax.swing.JButton;
  * @author saint
  */
 public class InterfaceDemineurV2 extends javax.swing.JFrame {
-private GrilleDeJeu grilleDeJeu;
-    private  int nbLignes = 10;
-    private  int nbColonnes = 10;
-    private  int nbBombes = 10;
+private  GrilleDeJeu grilleDeJeu;
+    private  int nbLignes =10;
+    private  int nbColonnes =10;
+    private  int nbBombes =10;
     /**
      * Creates new form InterfaceDemineurV2
      */
-   public InterfaceDemineurV2() {
+   public InterfaceDemineurV2(int difficulte) {
         initComponents();
-        initialiserJeu(); // Initialise le jeu par défaut
+        ChoisirDifficulte(difficulte); // Appliquer la difficulté choisie
+        initialiserJeu(); // Initialiser le jeu avec les paramètres de la difficulté
+    }
+   
+
+    InterfaceDemineurV2() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
    
    
 
     // Méthode pour initialiser le jeu
     private void initialiserJeu() {
+    // Étape 1 : Réinitialiser le panneau de la grille
+    PanneauGrille.removeAll(); // Retirer tous les composants (les boutons existants)
+    
+    // Étape 2 : Créer une nouvelle instance de la grille en fonction des nouvelles dimensions
     grilleDeJeu = new GrilleDeJeu(nbLignes, nbColonnes, nbBombes);
     grilleDeJeu.calculerBombesAdjacentes();
+    
+    // Étape 3 : Reconfigurer le Layout pour correspondre à la nouvelle taille de grille
+    PanneauGrille.setLayout(new GridLayout(nbLignes, nbColonnes)); // On redéfinit le layout avec les nouvelles dimensions
+    
+    // Étape 4 : Ajouter de nouveaux boutons (CelluleGraphique) pour chaque cellule de la grille
+    for (int i = 0; i < nbLignes; i++) {
+    for (int j = 0; j < nbColonnes; j++) {
+        Cellule cellule = grilleDeJeu.getMatriceCellules()[i][j]; // Récupération de la cellule logique
+        CelluleGraphique celluleGraphique = new CelluleGraphique(i, j, cellule); // Création du bouton graphique
 
-    PanneauGrille.setLayout(new GridLayout(nbLignes, nbColonnes));
+        // Ajout d'un ActionListener pour gérer les clics
+        celluleGraphique.addActionListener(evt -> {
+            System.out.println("Clic détecté sur la cellule graphique : Ligne=" + celluleGraphique.getLigne() 
+                               + ", Colonne=" + celluleGraphique.getColonne());
+            
+            grilleDeJeu.revelerCellule(celluleGraphique.getLigne(), celluleGraphique.getColonne()); 
+            
+            // Mettre à jour l’affichage graphique de cette cellule
+            celluleGraphique.mettreAJourAffichage();
+        });
 
-    for (int i = 0; i < nbLignes; i++) { 
-        for (int j = 0; j < nbColonnes; j++) {
-            final int i2 =i;
-            final int j2 =j;
-            // Récupérer la cellule correspondante dans la grille
-            Cellule cellule = grilleDeJeu.getMatriceCellules()[i][j];
-
-            // Créer un bouton CelluleGraphique en passant la cellule correspondante
-            CelluleGraphique boutonCellule = new CelluleGraphique(i, j, cellule);
-
-            // Ajouter un ActionListener pour gérer les clics
-            boutonCellule.addActionListener(e -> {
-                if (!cellule.getDevoilee()) {
-                    // Révéler la cellule dans la grille
-                    grilleDeJeu.revelerCellule(i2, j2);
-
-                    // Mettre à jour l'affichage
-                    mettreAJourAffichage();
-                }
-            });
-
-            // Ajouter le bouton au panneau
-            PanneauGrille.add(boutonCellule);
-        }
+        PanneauGrille.add(celluleGraphique); // Ajout du bouton graphique au panneau
     }
-
-    PanneauGrille.revalidate(); // Re-valider et redessiner le panneau
-    PanneauGrille.repaint();
 }
+
+
+    // Étape 5 : Revalider et redessiner le panneau
+    PanneauGrille.revalidate(); // Assure-toi que le layout est correctement recalculé
+    PanneauGrille.repaint(); // Redessiner le panneau
+}
+
 
 
     // Méthode pour mettre à jour l'affichage après un clic
     private void mettreAJourAffichage() {
+        
         Cellule[][] cellules = grilleDeJeu.getMatriceCellules();
         
         // Parcourir chaque cellule de la grille et mettre à jour son affichage
@@ -107,12 +117,7 @@ private GrilleDeJeu grilleDeJeu;
                 nbColonnes = 16;
                 nbBombes = 40;
                 break;
-            default:
-                System.out.println("Difficulté non reconnue. Paramètres par défaut appliqués.");
-                nbLignes = 10;
-                nbColonnes = 10;
-                nbBombes = 10;
-                break;
+            
         }
     }
     
@@ -172,20 +177,15 @@ private GrilleDeJeu grilleDeJeu;
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InterfaceDemineurV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InterfaceDemineurV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InterfaceDemineurV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(InterfaceDemineurV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new InterfaceDemineurV2().setVisible(true);
+            // Remplacer ici 1 par le niveau de difficulté choisi
+            new InterfaceDemineurV2(1).setVisible(true); 
         });
     }
 

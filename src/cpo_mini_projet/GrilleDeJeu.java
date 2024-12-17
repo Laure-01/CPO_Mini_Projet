@@ -213,6 +213,3 @@ public class GrilleDeJeu {
         return grilleAffichage.toString();
     }
 }
-
-
-
