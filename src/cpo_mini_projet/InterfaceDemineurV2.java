@@ -18,6 +18,7 @@ private  GrilleDeJeu grilleDeJeu;
     private  int nbLignes =10;
     private  int nbColonnes =10;
     private  int nbBombes =10;
+    private boolean modeDrapeau = false; // Variable pour suivre l'état du mode drapeau
     /**
      * Creates new form InterfaceDemineurV2
      */
@@ -32,52 +33,53 @@ private  GrilleDeJeu grilleDeJeu;
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
    
-   
-
-    // Méthode pour initialiser le jeu
+   // Méthode pour initialiser le jeu
     private void initialiserJeu() {
-    // Étape 1 : Réinitialiser le panneau de la grille
-    PanneauGrille.removeAll(); // Retirer tous les composants (les boutons existants)
-    
-    // Étape 2 : Créer une nouvelle instance de la grille en fonction des nouvelles dimensions
-    grilleDeJeu = new GrilleDeJeu(nbLignes, nbColonnes, nbBombes);
-    grilleDeJeu.calculerBombesAdjacentes();
-    
-    // Étape 3 : Reconfigurer le Layout pour correspondre à la nouvelle taille de grille
-    PanneauGrille.setLayout(new GridLayout(nbLignes, nbColonnes)); // On redéfinit le layout avec les nouvelles dimensions
-    
-    // Étape 4 : Ajouter de nouveaux boutons (CelluleGraphique) pour chaque cellule de la grille
-    for (int i = 0; i < nbLignes; i++) {
-    for (int j = 0; j < nbColonnes; j++) {
-        Cellule cellule = grilleDeJeu.getMatriceCellules()[i][j]; // Récupération de la cellule logique
-        CelluleGraphique celluleGraphique = new CelluleGraphique(i, j, cellule); // Création du bouton graphique
-
-        // Ajout d'un ActionListener pour gérer les clics
-        celluleGraphique.addActionListener(evt -> {
-            System.out.println("Clic détecté sur la cellule graphique : Ligne=" + celluleGraphique.getLigne() 
-                               + ", Colonne=" + celluleGraphique.getColonne());
-            
-            grilleDeJeu.revelerCellule(celluleGraphique.getLigne(), celluleGraphique.getColonne()); 
-            
-            // Mettre à jour l’affichage graphique de cette cellule
-            celluleGraphique.mettreAJourAffichage();
-        });
-
-        PanneauGrille.add(celluleGraphique); // Ajout du bouton graphique au panneau
-    }
-}
-
-
-    // Étape 5 : Revalider et redessiner le panneau
-    PanneauGrille.revalidate(); // Assure-toi que le layout est correctement recalculé
-    PanneauGrille.repaint(); // Redessiner le panneau
-}
-
-
-
-    // Méthode pour mettre à jour l'affichage après un clic
-    private void mettreAJourAffichage() {
+        // Étape 1 : Réinitialiser le panneau de la grille
+        PanneauGrille.removeAll(); // Retirer tous les composants (les boutons existants)
         
+        // Étape 2 : Créer une nouvelle instance de la grille en fonction des nouvelles dimensions
+        grilleDeJeu = new GrilleDeJeu(nbLignes, nbColonnes, nbBombes);
+        grilleDeJeu.calculerBombesAdjacentes();
+        
+        // Étape 3 : Reconfigurer le Layout pour correspondre à la nouvelle taille de grille
+        PanneauGrille.setLayout(new GridLayout(nbLignes, nbColonnes)); // On redéfinit le layout avec les nouvelles dimensions
+        
+        // Étape 4 : Ajouter de nouveaux boutons (CelluleGraphique) pour chaque cellule de la grille
+        for (int i = 0; i < nbLignes; i++) {
+            for (int j = 0; j < nbColonnes; j++) {
+                Cellule cellule = grilleDeJeu.getMatriceCellules()[i][j]; // Récupération de la cellule logique
+                CelluleGraphique celluleGraphique = new CelluleGraphique(i, j, cellule); // Création du bouton graphique
+
+                // Ajout d'un ActionListener pour gérer les clics
+                celluleGraphique.addActionListener(evt -> {
+                    if (modeDrapeau) {
+                        // Si le mode drapeau est activé, poser ou enlever un drapeau sur la cellule
+                        if (cellule.isDrapeauPose()) {
+                            cellule.enleverDrapeau();
+                        } else {
+                            cellule.poserDrapeau();
+                        }
+                        celluleGraphique.mettreAJourAffichage(); // Mettre à jour l'affichage de la cellule
+                    } else {
+                        // Si le mode drapeau n'est pas activé, révéler la cellule
+                        grilleDeJeu.revelerCellule(celluleGraphique.getLigne(), celluleGraphique.getColonne());
+                        celluleGraphique.mettreAJourAffichage();
+                    }
+                });
+
+                PanneauGrille.add(celluleGraphique); // Ajout du bouton graphique au panneau
+            }
+        }
+
+        // Étape 5 : Revalider et redessiner le panneau
+        PanneauGrille.revalidate(); // Assure-toi que le layout est correctement recalculé
+        PanneauGrille.repaint(); // Redessiner le panneau
+    }
+
+    
+// Méthode pour mettre à jour l'affichage après un clic
+    private void mettreAJourAffichage() {
         Cellule[][] cellules = grilleDeJeu.getMatriceCellules();
         
         // Parcourir chaque cellule de la grille et mettre à jour son affichage
@@ -87,18 +89,23 @@ private  GrilleDeJeu grilleDeJeu;
                 // Récupérer le bouton correspondant
                 CelluleGraphique bouton = (CelluleGraphique) PanneauGrille.getComponent(i * nbColonnes + j);
 
-                if (cellule.getDevoilee()) {
+                if (cellule.isDrapeauPose()) {
+                    bouton.setText("F"); // Afficher un "F" si un drapeau est posé
+                } else if (cellule.getDevoilee()) {
                     if (cellule.getPresenceBombe()) {
                         bouton.setText("B"); // Affiche une bombe
                     } else {
                         int nbBombesAdjacentes = cellule.getNbBombesAdjacentes();
                         bouton.setText(nbBombesAdjacentes > 0 ? String.valueOf(nbBombesAdjacentes) : "");
                     }
-                    bouton.setEnabled(false);
+                    bouton.setEnabled(false); // Désactiver le bouton après la révélation
                 }
             }
         }
     }
+
+
+    
 // Méthode qui définit les paramètres de la grille en fonction de la difficulté
     public void ChoisirDifficulte(int difficulte) {
         switch (difficulte) {
@@ -122,11 +129,6 @@ private  GrilleDeJeu grilleDeJeu;
     }
     
 
-            
-
-
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -137,6 +139,7 @@ private  GrilleDeJeu grilleDeJeu;
     private void initComponents() {
 
         PanneauGrille = new javax.swing.JPanel();
+        Drapeau = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -156,11 +159,22 @@ private  GrilleDeJeu grilleDeJeu;
             .addGap(0, 400, Short.MAX_VALUE)
         );
 
-        getContentPane().add(PanneauGrille, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, -1, -1));
+        getContentPane().add(PanneauGrille, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        Drapeau.setText("\"Mode Drapeau: Désactivé\"");
+        getContentPane().add(Drapeau, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 220, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+//Drapeau.setText("Mode Drapeau: Désactivé");
+        //Drapeau.addActionListener(evt -> {
+            //modeDrapeau = !modeDrapeau;  // Bascule entre mode drapeau et normal
+         //   if (modeDrapeau) {
+           //     Drapeau.setText("Mode Drapeau: Activé");
+        //    } else {
+          //      Drapeau.setText("Mode Drapeau: Désactivé");
+           // }
+        //});
     /**
      * @param args the command line arguments
      */
@@ -190,6 +204,7 @@ private  GrilleDeJeu grilleDeJeu;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Drapeau;
     private javax.swing.JPanel PanneauGrille;
     // End of variables declaration//GEN-END:variables
 }

@@ -31,6 +31,9 @@ public class GrilleDeJeu {
 
         // Placer les bombes aléatoirement dans la grille
         placerBombesAleatoirement();
+        
+        // Calculer les bombes adjacentes
+        calculerBombesAdjacentes();
     }
 
     // Getters pour les attributs
@@ -47,8 +50,8 @@ public class GrilleDeJeu {
     }
     
     public Cellule[][] getMatriceCellules() {
-    return matriceCellules;
-}
+        return matriceCellules;
+    }
 
     // Méthode pour placer les bombes aléatoirement
     private void placerBombesAleatoirement() {
@@ -57,7 +60,7 @@ public class GrilleDeJeu {
             int ligne = (int) (Math.random() * nbLignes);
             int colonne = (int) (Math.random() * nbColonnes);
 
-            // Vérifier si une bombe est déjà présente
+            // Vérifier si une bombe est déjà présente à cette position
             if (!matriceCellules[ligne][colonne].getPresenceBombe()) {
                 matriceCellules[ligne][colonne].placerBombe();
                 bombesPlacees++;
@@ -72,7 +75,7 @@ public class GrilleDeJeu {
                 // Si la cellule n'est pas une bombe
                 if (!matriceCellules[i][j].getPresenceBombe()) {
                     int bombesAdjacentes = compterBombesAdjacentes(i, j);
-                    // Mise à jour de l'attribut nbBombesAdjacentes
+                    // Mise à jour du nombre de bombes adjacentes pour cette cellule
                     matriceCellules[i][j].setNbBombesAdjacentes(bombesAdjacentes);
                 }
             }
@@ -87,7 +90,7 @@ public class GrilleDeJeu {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (i == 0 && j == 0) {
-                    continue; // Ignorer la cellule actuelle
+                    continue; // Ignorer la cellule elle-même
                 }
 
                 int nouvelleLigne = ligne + i;
@@ -97,7 +100,7 @@ public class GrilleDeJeu {
                 if (nouvelleLigne >= 0 && nouvelleLigne < nbLignes &&
                     nouvelleColonne >= 0 && nouvelleColonne < nbColonnes &&
                     matriceCellules[nouvelleLigne][nouvelleColonne].getPresenceBombe()) {
-                    bombes++;
+                    bombes++; // Ajouter 1 si une bombe est présente
                 }
             }
         }
