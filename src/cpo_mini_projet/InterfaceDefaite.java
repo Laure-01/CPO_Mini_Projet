@@ -30,31 +30,44 @@ public class InterfaceDefaite extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         JBM = new javax.swing.JButton();
         JBD = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(102, 153, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 153, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Rockwell Extra Bold", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 153));
         jLabel1.setText("VOUS AVEZ PERDU!!!!");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 6, 367, 164));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 367, 164));
 
+        JBM.setBackground(new java.awt.Color(255, 255, 204));
+        JBM.setFont(new java.awt.Font("SimSun-ExtB", 1, 14)); // NOI18N
+        JBM.setForeground(new java.awt.Color(255, 51, 255));
         JBM.setText("Menu");
         JBM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JBMActionPerformed(evt);
             }
         });
-        jPanel1.add(JBM, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, -1, -1));
+        jPanel1.add(JBM, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 140, -1));
 
-        JBD.setText("changer difficulté");
+        JBD.setBackground(new java.awt.Color(255, 255, 204));
+        JBD.setFont(new java.awt.Font("SimSun-ExtB", 1, 14)); // NOI18N
+        JBD.setForeground(new java.awt.Color(255, 51, 255));
+        JBD.setText("changer difficulte");
         JBD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JBDActionPerformed(evt);
             }
         });
-        jPanel1.add(JBD, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, -1, -1));
+        jPanel1.add(JBD, new org.netbeans.lib.awtextra.AbsoluteConstraints(207, 200, 170, -1));
+
+        jLabel2.setFont(new java.awt.Font("SimSun", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(153, 0, 153));
+        jLabel2.setText("Vous ferez peut-etre mieux une autre fois... ^^");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -122,6 +135,7 @@ public class InterfaceDefaite extends javax.swing.JFrame {
     private javax.swing.JButton JBD;
     private javax.swing.JButton JBM;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

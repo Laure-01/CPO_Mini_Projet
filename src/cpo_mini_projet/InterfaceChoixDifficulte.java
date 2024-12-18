@@ -38,6 +38,8 @@ private Demineur demineur;
         JB1 = new javax.swing.JButton();
         JB2 = new javax.swing.JButton();
         JB3 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,34 +79,47 @@ private Demineur demineur;
             }
         });
 
+        jTextArea1.setBackground(new java.awt.Color(255, 255, 204));
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Tw Cen MT", 2, 14)); // NOI18N
+        jTextArea1.setForeground(new java.awt.Color(255, 51, 255));
+        jTextArea1.setRows(5);
+        jTextArea1.setText("Facile: \nVous disposez de 2 vies.\n 10 bombes ont été placées aléatoirement dans la \ngrille. A vous de toutes les trouver!!\n\nModere:\n20 Bombes ont été placées dans la grille.  \nVous n'avez qu'une vie pour les trouver.\nLa grille est a present plus grande!\n\nDifficile:\nLa grille est encore plus grande. \n40 bombes ont ete placees. Vous \nn'avez qu'une seule vie pour toutes les trouver.\n");
+        jScrollPane1.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(71, Short.MAX_VALUE)
-                .addComponent(JB1)
-                .addGap(49, 49, 49)
-                .addComponent(JB2)
-                .addGap(50, 50, 50)
-                .addComponent(JB3)
-                .addGap(113, 113, 113))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(104, 104, 104)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(71, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(JB1)
+                        .addGap(49, 49, 49)
+                        .addComponent(JB2)
+                        .addGap(50, 50, 50)
+                        .addComponent(JB3)))
+                .addGap(113, 113, 113))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addGap(84, 84, 84)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100)
+                .addGap(63, 63, 63)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JB1)
                     .addComponent(JB2)
                     .addComponent(JB3))
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -192,5 +207,7 @@ private Demineur demineur;
     private javax.swing.JButton JB3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
