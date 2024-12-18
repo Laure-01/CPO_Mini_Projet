@@ -35,16 +35,22 @@ public class InterfaceBienvenue extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 153, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 400));
 
+        JBENTR.setBackground(new java.awt.Color(255, 255, 204));
+        JBENTR.setFont(new java.awt.Font("SimSun-ExtB", 1, 14)); // NOI18N
+        JBENTR.setForeground(new java.awt.Color(255, 51, 255));
         JBENTR.setText("Jouer");
+        JBENTR.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(255, 102, 255), null, new java.awt.Color(153, 0, 153)));
         JBENTR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JBENTRActionPerformed(evt);
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 204));
         jLabel1.setText("SUPER DEMINEUR");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -57,15 +63,15 @@ public class InterfaceBienvenue extends javax.swing.JFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(104, 104, 104))
+                .addComponent(jLabel1)
+                .addGap(87, 87, 87))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
+                .addGap(45, 45, 45)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(130, 130, 130)
+                .addGap(144, 144, 144)
                 .addComponent(JBENTR, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

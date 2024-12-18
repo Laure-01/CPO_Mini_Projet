@@ -43,8 +43,13 @@ private Demineur demineur;
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 255));
 
-        jLabel1.setText("Choisir la difficulté");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 22)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 204));
+        jLabel1.setText("CHOISIR LA DIFFICULTE");
 
+        JB1.setBackground(new java.awt.Color(255, 255, 204));
+        JB1.setFont(new java.awt.Font("SimSun-ExtB", 1, 12)); // NOI18N
+        JB1.setForeground(new java.awt.Color(255, 102, 255));
         JB1.setText("Facile");
         JB1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -52,13 +57,19 @@ private Demineur demineur;
             }
         });
 
-        JB2.setText("Modédéré");
+        JB2.setBackground(new java.awt.Color(255, 255, 204));
+        JB2.setFont(new java.awt.Font("SimSun-ExtB", 1, 12)); // NOI18N
+        JB2.setForeground(new java.awt.Color(255, 102, 255));
+        JB2.setText("Modere");
         JB2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JB2ActionPerformed(evt);
             }
         });
 
+        JB3.setBackground(new java.awt.Color(255, 255, 204));
+        JB3.setFont(new java.awt.Font("SimSun-ExtB", 1, 12)); // NOI18N
+        JB3.setForeground(new java.awt.Color(255, 102, 255));
         JB3.setText("Difficile");
         JB3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,25 +82,24 @@ private Demineur demineur;
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(149, 149, 149)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addComponent(JB1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(JB2)))
-                .addGap(30, 30, 30)
+                .addContainerGap(71, Short.MAX_VALUE)
+                .addComponent(JB1)
+                .addGap(49, 49, 49)
+                .addComponent(JB2)
+                .addGap(50, 50, 50)
                 .addComponent(JB3)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addGap(113, 113, 113))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(104, 104, 104)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(jLabel1)
-                .addGap(99, 99, 99)
+                .addGap(47, 47, 47)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(100, 100, 100)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JB1)
                     .addComponent(JB2)
