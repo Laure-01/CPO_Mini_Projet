@@ -14,6 +14,15 @@ public class Cellule {
     private int nbBombesAdjacentes;
     private boolean drapeauPose; // Attribut pour gérer l'état du drapeau
 
+    // Constructeur par défaut
+    public Cellule() {
+        this.presenceBombe = false; // Par défaut, pas de bombe
+        this.devoilee = false;     // Par défaut, non dévoilée
+        this.nbBombesAdjacentes = 0; // Par défaut, aucune bombe adjacente
+        this.drapeauPose = false;  // Par défaut, aucun drapeau posé
+    }
+
+    // Constructeur avec paramètres
     public Cellule(boolean presenceBombe, boolean devoilee, int nbBombesAdjacentes) {
         this.presenceBombe = presenceBombe;
         this.devoilee = devoilee;
@@ -82,5 +91,6 @@ public class Cellule {
         }
     }
 }
+
 
 

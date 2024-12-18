@@ -60,8 +60,12 @@
     </Container>
     <Component class="javax.swing.JButton" name="Drapeau">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&quot;Mode Drapeau: D&#xe9;sactiv&#xe9;&quot;"/>
+        <Property name="text" type="java.lang.String" value="Drapeau"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DrapeauActionPerformed"/>
+        <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="DrapeauPropertyChange"/>
+      </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="450" y="220" width="-1" height="-1"/>

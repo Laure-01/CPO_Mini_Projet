@@ -8,6 +8,10 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -46,36 +50,50 @@ private int nbVies;
         // Étape 3 : Reconfigurer le Layout pour correspondre à la nouvelle taille de grille
         PanneauGrille.setLayout(new GridLayout(nbLignes, nbColonnes)); // On redéfinit le layout avec les nouvelles dimensions
         
-        // Étape 4 : Ajouter de nouveaux boutons (CelluleGraphique) pour chaque cellule de la grille
+        // Ajouter des boutons pour chaque cellule de la grille
         for (int i = 0; i < nbLignes; i++) {
             for (int j = 0; j < nbColonnes; j++) {
-                Cellule cellule = grilleDeJeu.getMatriceCellules()[i][j]; // Récupération de la cellule logique
-                CelluleGraphique celluleGraphique = new CelluleGraphique(i, j, cellule); // Création du bouton graphique
+                Cellule cellule = grilleDeJeu.getMatriceCellules()[i][j];
+                CelluleGraphique celluleGraphique = new CelluleGraphique(i, j, cellule);
 
-                // Ajout d'un ActionListener pour gérer les clics
+                // Gérer les clics
                 celluleGraphique.addActionListener(evt -> {
                     if (modeDrapeau) {
-                        // Si le mode drapeau est activé, poser ou enlever un drapeau sur la cellule
+                        // Gestion du drapeau
                         if (cellule.isDrapeauPose()) {
                             cellule.enleverDrapeau();
                         } else {
                             cellule.poserDrapeau();
                         }
-                        celluleGraphique.mettreAJourAffichage(); // Mettre à jour l'affichage de la cellule
-                    } else {
-                        // Si le mode drapeau n'est pas activé, révéler la cellule
-                        grilleDeJeu.revelerCellule(celluleGraphique.getLigne(), celluleGraphique.getColonne());
                         celluleGraphique.mettreAJourAffichage();
+                    } else {
+                        // Révéler la cellule
+                        if (cellule.getPresenceBombe()) {
+                            nbVies--;
+                            if (nbVies <= 0) {
+                                JOptionPane.showMessageDialog(this, "Boom! Vous avez perdu toutes vos vies.", "Défaite", JOptionPane.ERROR_MESSAGE);
+                                initialiserJeu(); // Réinitialiser le jeu
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Boom! Bombe révélée, vies restantes: " + nbVies, "Attention!", JOptionPane.WARNING_MESSAGE);
+                            }
+                        } else {
+                            grilleDeJeu.revelerCellule(celluleGraphique.getLigne(), celluleGraphique.getColonne());
+                        }
+                        mettreAJourAffichage();
+                        if (grilleDeJeu.toutesCellulesRevelees()) {
+                            JOptionPane.showMessageDialog(this, "Félicitations ! Vous avez gagné !", "Victoire", JOptionPane.INFORMATION_MESSAGE);
+                            initialiserJeu();
+                        }
                     }
                 });
 
-                PanneauGrille.add(celluleGraphique); // Ajout du bouton graphique au panneau
+                PanneauGrille.add(celluleGraphique);
             }
         }
 
-        // Étape 5 : Revalider et redessiner le panneau
-        PanneauGrille.revalidate(); // Assure-toi que le layout est correctement recalculé
-        PanneauGrille.repaint(); // Redessiner le panneau
+        // Revalider et redessiner
+        PanneauGrille.revalidate();
+        PanneauGrille.repaint();
     }
 
     
@@ -91,10 +109,10 @@ private int nbVies;
                 CelluleGraphique bouton = (CelluleGraphique) PanneauGrille.getComponent(i * nbColonnes + j);
 
                 if (cellule.isDrapeauPose()) {
-                    bouton.setText("F"); // Afficher un "F" si un drapeau est posé
+                    bouton.setIcon(new ImageIcon(getClass().getResource("/image/drapeau.png")));
                 } else if (cellule.getDevoilee()) {
                     if (cellule.getPresenceBombe()) {
-                        bouton.setText("B"); // Affiche une bombe
+                        bouton.setIcon(new ImageIcon(getClass().getResource("/image/bombes.jpg")));
                     } else {
                         int nbBombesAdjacentes = cellule.getNbBombesAdjacentes();
                         bouton.setText(nbBombesAdjacentes > 0 ? String.valueOf(nbBombesAdjacentes) : "");
@@ -165,20 +183,38 @@ private int nbVies;
 
         getContentPane().add(PanneauGrille, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
-        Drapeau.setText("\"Mode Drapeau: Désactivé\"");
+        Drapeau.setText("Drapeau");
+        Drapeau.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DrapeauActionPerformed(evt);
+            }
+        });
+        Drapeau.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                DrapeauPropertyChange(evt);
+            }
+        });
         getContentPane().add(Drapeau, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 220, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-//Drapeau.setText("Mode Drapeau: Désactivé");
-        //Drapeau.addActionListener(evt -> {
-            //modeDrapeau = !modeDrapeau;  // Bascule entre mode drapeau et normal
-         //   if (modeDrapeau) {
-           //     Drapeau.setText("Mode Drapeau: Activé");
-        //    } else {
-          //      Drapeau.setText("Mode Drapeau: Désactivé");
-           // }
-        //});
+
+    private void DrapeauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DrapeauActionPerformed
+        // TODO add your handling code here:
+        //Basculer entre les modes Drapeau
+            modeDrapeau = !modeDrapeau;  
+            if (modeDrapeau) {
+                Drapeau.setText("Mode Drapeau: Activé");
+            } else {
+                Drapeau.setText("Mode Drapeau: Désactivé");
+            }
+        
+    }//GEN-LAST:event_DrapeauActionPerformed
+
+    private void DrapeauPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_DrapeauPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DrapeauPropertyChange
+
     /**
      * @param args the command line arguments
      */

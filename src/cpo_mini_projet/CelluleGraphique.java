@@ -40,7 +40,7 @@ public class CelluleGraphique extends JButton {
                         setIcon(null); // Enlever l'icône du drapeau
                     } else {
                         cellule.poserDrapeau(); // Poser le drapeau
-                        setIcon(new ImageIcon(getClass().getResource("/image/drapeau.png"))); // Afficher l'icône du drapeau
+                        setIcon(new ImageIcon(getClass().getResource("/image/drapeau.jpg"))); // Afficher l'icône du drapeau
                     }
                 }
             }
@@ -51,11 +51,21 @@ public class CelluleGraphique extends JButton {
     public void mettreAJourAffichage() {
         if (cellule.isDrapeauPose()) {
             // Si un drapeau est posé, afficher l'icône du drapeau
-            setIcon(new ImageIcon(getClass().getResource("/image/drapeau.png")));
+            java.net.URL drapeauURL = getClass().getResource("/image/drapeau.jpg");
+            if (drapeauURL != null) {
+                ImageIcon drapeauIcone = new ImageIcon(drapeauURL);
+                Image image = drapeauIcone.getImage();
+                // Redimensionner l'image pour qu'elle s'ajuste à la taille du bouton tout en maintenant son ratio d'aspect
+            Image redimensionnee = image.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
+            setIcon(new ImageIcon(redimensionnee));
+            }else{
+                System.err.println("Erreur : Image 'drapeau.jpg' non trouvée dans 'src/image/' !");
+            }
+            
         } else if (cellule.getDevoilee()) {
             if (cellule.getPresenceBombe()) {
                 // Charger l'image depuis src/image/bombe.jpg
-                java.net.URL bombeURL = getClass().getResource("/image/bombe.jpg");
+                java.net.URL bombeURL = getClass().getResource("/image/bombes.jpg");
                 if (bombeURL != null) {
                     // Créer l'ImageIcon et redimensionner l'image pour qu'elle s'ajuste à la taille du bouton
                     ImageIcon bombeIcone = new ImageIcon(bombeURL);
@@ -64,7 +74,7 @@ public class CelluleGraphique extends JButton {
                     Image redimensionnee = image.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH); 
                     this.setIcon(new ImageIcon(redimensionnee)); // Définir l'icône redimensionnée
                 } else {
-                    System.err.println("Erreur : Image 'bombe.jpg' non trouvée dans 'src/image/' !");
+                    System.err.println("Erreur : Image 'bombes.jpg' non trouvée dans 'src/image/' !");
                 }
             } else if (cellule.getNbBombesAdjacentes() > 0) {
                 this.setText(String.valueOf(cellule.getNbBombesAdjacentes())); // Nombre de bombes adjacentes
