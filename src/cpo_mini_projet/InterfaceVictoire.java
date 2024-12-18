@@ -35,8 +35,11 @@ public class InterfaceVictoire extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 153));
 
-        jLabel1.setText("GG!");
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 153, 255));
+        jLabel1.setText("Bravo!! Vous etes la/le meilleur(e)");
 
+        jButton1.setBackground(new java.awt.Color(255, 204, 255));
         jButton1.setText("menu");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -44,6 +47,7 @@ public class InterfaceVictoire extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(255, 204, 255));
         jButton2.setText("nouvelle partie");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -56,7 +60,7 @@ public class InterfaceVictoire extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(83, Short.MAX_VALUE)
+                .addContainerGap(35, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1)
@@ -64,8 +68,8 @@ public class InterfaceVictoire extends javax.swing.JFrame {
                         .addComponent(jButton2)
                         .addGap(109, 109, 109))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(66, 66, 66))))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

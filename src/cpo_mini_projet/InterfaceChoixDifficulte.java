@@ -85,6 +85,9 @@ private Demineur demineur;
         jTextArea1.setForeground(new java.awt.Color(255, 51, 255));
         jTextArea1.setRows(5);
         jTextArea1.setText("Facile: \nVous disposez de 2 vies.\n 10 bombes ont été placées aléatoirement dans la \ngrille. A vous de toutes les trouver!!\n\nModere:\n20 Bombes ont été placées dans la grille.  \nVous n'avez qu'une vie pour les trouver.\nLa grille est a present plus grande!\n\nDifficile:\nLa grille est encore plus grande. \n40 bombes ont ete placees. Vous \nn'avez qu'une seule vie pour toutes les trouver.\n");
+        jTextArea1.setCursor(new java.awt.Cursor(java.awt.Cursor.W_RESIZE_CURSOR));
+        jTextArea1.setSelectedTextColor(new java.awt.Color(255, 255, 204));
+        jTextArea1.setSelectionColor(new java.awt.Color(153, 0, 153));
         jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

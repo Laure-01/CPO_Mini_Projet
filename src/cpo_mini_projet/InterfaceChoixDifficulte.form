@@ -166,6 +166,15 @@
                 </Property>
                 <Property name="rows" type="int" value="5"/>
                 <Property name="text" type="java.lang.String" value="Facile: &#xa;Vous disposez de 2 vies.&#xa; 10 bombes ont &#xe9;t&#xe9; plac&#xe9;es al&#xe9;atoirement dans la &#xa;grille. A vous de toutes les trouver!!&#xa;&#xa;Modere:&#xa;20 Bombes ont &#xe9;t&#xe9; plac&#xe9;es dans la grille.  &#xa;Vous n&apos;avez qu&apos;une vie pour les trouver.&#xa;La grille est a present plus grande!&#xa;&#xa;Difficile:&#xa;La grille est encore plus grande. &#xa;40 bombes ont ete placees. Vous &#xa;n&apos;avez qu&apos;une seule vie pour toutes les trouver.&#xa;"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="West Resize Cursor"/>
+                </Property>
+                <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="cc" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="selectionColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="99" green="0" red="99" type="rgb"/>
+                </Property>
               </Properties>
             </Component>
           </SubComponents>
