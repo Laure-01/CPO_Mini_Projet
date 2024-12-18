@@ -52,18 +52,12 @@ public class GrilleDeJeu {
     }
     
     public boolean getPresenceBombe(int ligne, int colonne) {
-        
-     
-// Vérification des indices valides
-        
-      
-if (ligne < 0 || ligne >= nbLignes || colonne < 0 || colonne >= nbColonnes) {
+        // Vérification des indices valides
+        if (ligne < 0 || ligne >= nbLignes || colonne < 0 || colonne >= nbColonnes) {
             return false; // Si la position est hors des limites, retourner false
         }
         return matriceCellules[ligne][colonne].getPresenceBombe();
-        }
-
-        
+    }
 
     // Méthode pour placer les bombes aléatoirement
     private void placerBombesAleatoirement() {
@@ -107,60 +101,47 @@ if (ligne < 0 || ligne >= nbLignes || colonne < 0 || colonne >= nbColonnes) {
     // Méthode pour révéler une cellule à une position donnée avec propagation
     public void revelerCellule(int ligne, int colonne) {
         if (ligne < 0 || ligne >= nbLignes || colonne < 0 || colonne >= nbColonnes) {
-            return;
+            return; // Vérifier que la position est valide
         }
 
         Cellule cellule = matriceCellules[ligne][colonne];
 
+        // Si la cellule est déjà révélée ou si un drapeau est posé, on ne fait rien
         if (cellule.getDevoilee() || cellule.isDrapeauPose()) {
             return;
         }
 
+        // Révéler la cellule
         cellule.revelerCellule();
 
+        // Si la cellule contient une bombe, fin de la partie
         if (cellule.getPresenceBombe()) {
             System.out.println("Boom! Vous avez révélé une bombe. Fin de la partie !");
-            afficherInterfaceDefaite();
+            afficherInterfaceDefaite(); // Affiche l'interface de défaite
             return;
         }
 
-        if (cellule.getNbBombesAdjacentes() == 0) {
-            for (int i = -1; i <= 1; i++) {
-                for (int j = -1; j <= 1; j++) {
-                    if (i != 0 || j != 0) {
-                        revelerCellule(ligne + i, colonne + j);
+         if (cellule.getNbBombesAdjacentes() == 0) {
+        // Parcourir les 8 cellules voisines
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (i != 0 || j != 0) {
+                    int nouvelleLigne = ligne + i;
+                    int nouvelleColonne = colonne + j;
+                    // Appel récursif pour chaque cellule voisine
+                    // Vérifier si la cellule voisine est dans les limites et non déjà révélée
+                    if (nouvelleLigne >= 0 && nouvelleLigne < nbLignes &&
+                        nouvelleColonne >= 0 && nouvelleColonne < nbColonnes) {
+                        // Ne révéler que les cellules adjacentes vides ou sans bombe
+                        if (!matriceCellules[nouvelleLigne][nouvelleColonne].getDevoilee()) {
+                            revelerCellule(nouvelleLigne, nouvelleColonne);
+                        }
                     }
                 }
             }
         }
     }
-
-    // Nouvelle méthode pour propager la révélation
-    public void propagerRevelation(int ligne, int colonne) {
-        if (ligne < 0 || ligne >= nbLignes || colonne < 0 || colonne >= nbColonnes) {
-            return;
-        }
-
-        Cellule cellule = matriceCellules[ligne][colonne];
-
-        if (cellule.getDevoilee() || cellule.getPresenceBombe() || cellule.isDrapeauPose()) {
-            return;
-        }
-
-        cellule.revelerCellule();
-
-        if (cellule.getNbBombesAdjacentes() > 0) {
-            return;
-        }
-
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                if (i != 0 || j != 0) {
-                    propagerRevelation(ligne + i, colonne + j);
-                }
-            }
-        }
-    }
+}
 
     private void afficherInterfaceDefaite() {
         java.awt.EventQueue.invokeLater(() -> new InterfaceDefaite().setVisible(true));
@@ -202,3 +183,4 @@ if (ligne < 0 || ligne >= nbLignes || colonne < 0 || colonne >= nbColonnes) {
         return grilleAffichage.toString();
     }
 }
+
