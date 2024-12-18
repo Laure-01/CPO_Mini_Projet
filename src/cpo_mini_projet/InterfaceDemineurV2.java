@@ -175,14 +175,14 @@ private int nbVies;
         PanneauGrille.setLayout(PanneauGrilleLayout);
         PanneauGrilleLayout.setHorizontalGroup(
             PanneauGrilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 540, Short.MAX_VALUE)
         );
         PanneauGrilleLayout.setVerticalGroup(
             PanneauGrilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 410, Short.MAX_VALUE)
         );
 
-        getContentPane().add(PanneauGrille, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        getContentPane().add(PanneauGrille, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 540, 410));
 
         Drapeau.setBackground(new java.awt.Color(255, 204, 255));
         Drapeau.setText("Drapeau");
@@ -196,7 +196,7 @@ private int nbVies;
                 DrapeauPropertyChange(evt);
             }
         });
-        getContentPane().add(Drapeau, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 220, 120, -1));
+        getContentPane().add(Drapeau, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 210, 120, -1));
 
         jButton1.setBackground(new java.awt.Color(255, 204, 255));
         jButton1.setText("revenir au menu");
@@ -205,7 +205,7 @@ private int nbVies;
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 340, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 250, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
