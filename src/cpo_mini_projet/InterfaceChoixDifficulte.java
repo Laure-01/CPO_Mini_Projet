@@ -134,7 +134,7 @@ private Demineur demineur;
          // TODO add your handling code here:
         // Si le bouton JB1 (Facile) est pressé, lancer le démineur en difficulté 1 (facile)
     InterfaceDemineurV2 demmi = new InterfaceDemineurV2(3);  // Créer une nouvelle instance de jeu
-    demmi.ChoisirDifficulte(1);
+    demmi.ChoisirDifficulte(3);
     demmi.setVisible(true);  // Afficher la fenêtre de jeu
     this.setVisible(false);
     }//GEN-LAST:event_JB3ActionPerformed

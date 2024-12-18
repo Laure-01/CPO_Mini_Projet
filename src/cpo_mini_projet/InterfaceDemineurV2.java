@@ -162,6 +162,7 @@ private int nbVies;
 
         PanneauGrille = new javax.swing.JPanel();
         Drapeau = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -183,6 +184,7 @@ private int nbVies;
 
         getContentPane().add(PanneauGrille, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
+        Drapeau.setBackground(new java.awt.Color(255, 204, 255));
         Drapeau.setText("Drapeau");
         Drapeau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,7 +196,16 @@ private int nbVies;
                 DrapeauPropertyChange(evt);
             }
         });
-        getContentPane().add(Drapeau, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 220, -1, -1));
+        getContentPane().add(Drapeau, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 220, 120, -1));
+
+        jButton1.setBackground(new java.awt.Color(255, 204, 255));
+        jButton1.setText("revenir au menu");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 340, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -214,6 +225,12 @@ private int nbVies;
     private void DrapeauPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_DrapeauPropertyChange
         // TODO add your handling code here:
     }//GEN-LAST:event_DrapeauPropertyChange
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       InterfaceBienvenue changerDifficulte = new InterfaceBienvenue(); // Créer une instance de l'interface
+    changerDifficulte.setVisible(true); // Afficher la fenêtre
+    this.dispose(); // Fermer la fenêtre actuelle
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -248,5 +265,6 @@ private int nbVies;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Drapeau;
     private javax.swing.JPanel PanneauGrille;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }
