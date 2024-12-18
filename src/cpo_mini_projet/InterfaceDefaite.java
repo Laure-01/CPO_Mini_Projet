@@ -29,7 +29,6 @@ public class InterfaceDefaite extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         JBM = new javax.swing.JButton();
-        JBR = new javax.swing.JButton();
         JBD = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -47,15 +46,7 @@ public class InterfaceDefaite extends javax.swing.JFrame {
                 JBMActionPerformed(evt);
             }
         });
-        jPanel1.add(JBM, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 202, -1, -1));
-
-        JBR.setText("Réssayer");
-        JBR.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JBRActionPerformed(evt);
-            }
-        });
-        jPanel1.add(JBR, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, -1, -1));
+        jPanel1.add(JBM, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, -1, -1));
 
         JBD.setText("changer difficulté");
         JBD.addActionListener(new java.awt.event.ActionListener() {
@@ -63,7 +54,7 @@ public class InterfaceDefaite extends javax.swing.JFrame {
                 JBDActionPerformed(evt);
             }
         });
-        jPanel1.add(JBD, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, -1, -1));
+        jPanel1.add(JBD, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -80,25 +71,14 @@ public class InterfaceDefaite extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JBMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBMActionPerformed
-        // Aller à l'écran principal (menu principal ou nouvelle fenêtre)
-    // Par exemple, tu pourrais créer une nouvelle instance de l'écran principal
-    // Si tu veux revenir à un écran de menu principal, crée une nouvelle fenêtre ici
-    // new MenuPrincipal().setVisible(true);
+   InterfaceBienvenue changerDifficulte = new InterfaceBienvenue(); // Créer une instance de l'interface
+    changerDifficulte.setVisible(true); // Afficher la fenêtre
     this.dispose(); // Fermer la fenêtre actuelle
     }//GEN-LAST:event_JBMActionPerformed
 
-    private void JBRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBRActionPerformed
-        // Réinitialiser la grille de jeu et recommencer la partie
-    // Par exemple, réinitialiser les variables, recréer la grille de jeu, etc.
-    // new GrilleDeJeu(...).startGame();
-    this.dispose(); // Fermer la fenêtre actuelle
-    // Redémarrer le jeu
-    // new Jeu().setVisible(true);  // Remplacer par ta logique pour relancer le jeu
-    }//GEN-LAST:event_JBRActionPerformed
-
     private void JBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBDActionPerformed
-        // Ouvrir un écran pour changer la difficulté
-    // new ChoisirDifficulte().setVisible(true);  // Par exemple, une nouvelle fenêtre pour choisir la difficulté
+      InterfaceChoixDifficulte changerDifficulte = new InterfaceChoixDifficulte(); // Créer une instance de l'interface
+    changerDifficulte.setVisible(true); // Afficher la fenêtre
     this.dispose(); // Fermer la fenêtre actuelle
     }//GEN-LAST:event_JBDActionPerformed
 
@@ -141,7 +121,6 @@ public class InterfaceDefaite extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBD;
     private javax.swing.JButton JBM;
-    private javax.swing.JButton JBR;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
