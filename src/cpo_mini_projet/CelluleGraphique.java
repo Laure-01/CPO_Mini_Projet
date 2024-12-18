@@ -13,10 +13,6 @@ import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-/**
- *
- * @author lenovo
- */
 public class CelluleGraphique extends JButton {
     private final int ligne;
     private final int colonne;
@@ -55,29 +51,25 @@ public class CelluleGraphique extends JButton {
             if (drapeauURL != null) {
                 ImageIcon drapeauIcone = new ImageIcon(drapeauURL);
                 Image image = drapeauIcone.getImage();
-                // Redimensionner l'image pour qu'elle s'ajuste à la taille du bouton tout en maintenant son ratio d'aspect
-            Image redimensionnee = image.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
-            setIcon(new ImageIcon(redimensionnee));
-            }else{
-                System.err.println("Erreur : Image 'drapeau.jpg' non trouvée dans 'src/image/' !");
+                Image redimensionnee = image.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
+                setIcon(new ImageIcon(redimensionnee));
+            } else {
+                System.err.println("Erreur : Image 'drapeau.jpg' non trouvée !");
             }
-            
         } else if (cellule.getDevoilee()) {
             if (cellule.getPresenceBombe()) {
-                // Charger l'image depuis src/image/bombe.jpg
+                // Charger l'image de la bombe
                 java.net.URL bombeURL = getClass().getResource("/image/bombes.jpg");
                 if (bombeURL != null) {
-                    // Créer l'ImageIcon et redimensionner l'image pour qu'elle s'ajuste à la taille du bouton
                     ImageIcon bombeIcone = new ImageIcon(bombeURL);
-                    Image image = bombeIcone.getImage(); // Obtenir l'image
-                    // Redimensionner l'image pour s'adapter au bouton tout en maintenant son ratio d'aspect
-                    Image redimensionnee = image.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH); 
-                    this.setIcon(new ImageIcon(redimensionnee)); // Définir l'icône redimensionnée
+                    Image image = bombeIcone.getImage();
+                    Image redimensionnee = image.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
+                    this.setIcon(new ImageIcon(redimensionnee));
                 } else {
-                    System.err.println("Erreur : Image 'bombes.jpg' non trouvée dans 'src/image/' !");
+                    System.err.println("Erreur : Image 'bombes.jpg' non trouvée !");
                 }
             } else if (cellule.getNbBombesAdjacentes() > 0) {
-                this.setText(String.valueOf(cellule.getNbBombesAdjacentes())); // Nombre de bombes adjacentes
+                this.setText(String.valueOf(cellule.getNbBombesAdjacentes())); // Afficher le nombre de bombes adjacentes
             } else {
                 this.setText(" "); // Vide
             }
@@ -101,4 +93,5 @@ public class CelluleGraphique extends JButton {
         return cellule;
     }
 }
+
 
