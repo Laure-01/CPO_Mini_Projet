@@ -71,7 +71,7 @@ private int nbVies;
                         if (cellule.getPresenceBombe()) {
                             nbVies--;
                             if (nbVies <= 0) {
-                                JOptionPane.showMessageDialog(this, "Boom! Vous avez perdu toutes vos vies.", "Défaite", JOptionPane.ERROR_MESSAGE);
+                               
                                 initialiserJeu(); // Réinitialiser le jeu
                             } else {
                                 JOptionPane.showMessageDialog(this, "Boom! Bombe révélée, vies restantes: " + nbVies, "Attention!", JOptionPane.WARNING_MESSAGE);
