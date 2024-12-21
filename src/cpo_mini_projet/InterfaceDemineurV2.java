@@ -205,7 +205,7 @@ private int nbVies;
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 250, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 250, 120, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
